@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import Header from './components/header';
-import './App.css';
+import React, { Component } from 'react'
+import Header from './components/header-component'
+import Footer from './components/footer-component'
+import './App.css'
+
+import LineChartContainer from './containers/linechart-container'
 
 class App extends Component {
 
@@ -8,38 +11,30 @@ class App extends Component {
     super(props);
 
     this.state = {
-      metaData: null,
-      serialData: null
+      day: new Date(),
+      pred: ''
+    }
+
+    this.day = (val)=>{
+      this.setState({
+        day: val
+      });
+    }
+
+    this.pred = (val)=> {
+      this.setState({
+        pred: val
+      });
     }
 
   }
 
-  componentDidMount() {
-
-      fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOGL&interval=30min&apikey=042XYM5X14C1K30O').then(
-        (res)=>{
-          return res.json();
-        }
-      ).then(
-        (data)=>{
-          console.log(data);
-          this.setState({
-            metaData: data["Meta Data"]
-          });
-          this.setState({
-            serialData: data["Time Series (30min)"]
-          });           
-        }
-      )
-  }
-
   render() {
-
-    console.log('state is: ', this.state)
-
     return (
       <div className="App">
-        <Header metaData={this.state.metaData}/>
+        <Header date={this.state.day} />
+        <LineChartContainer day={this.day} pred={this.pred} />
+        <Footer pred={this.state.pred} />
       </div>
     );
   }

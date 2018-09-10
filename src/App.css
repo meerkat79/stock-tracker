@@ -20,3 +20,10 @@
 .App-intro {
   font-size: large;
 }
+
+.chartContainer {
+  width: 78%;
+  border: solid 1px #6d78ad;
+  margin: auto;
+  padding: 2%;  
+}
